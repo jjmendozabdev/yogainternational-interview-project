@@ -52,7 +52,7 @@ Before you begin your task, your team members need some help with a few TypeScri
 
 ##### Response to the Junior Dev
 
-* "We should not use `as` here because... **@TODO_WRITE_YOUR_ANSWER_HERE**"
+* "We should not use `as` here because... **we can rely that the compiler infers the proper type in this case.**"
 
 ## Your Tasks (2): New Download Feature
 The team is grateful for your help resolving those TypeScript issues! Now, you sit down to read your requirements for the new Downloads feature you've been tasked with.

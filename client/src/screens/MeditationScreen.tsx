@@ -4,9 +4,10 @@ import { ContentImage, TeacherImage, Media } from "../mocks";
 import {
   meditationScreenQuery,
   MeditationScreenQuery,
-  MeditationScreenQueryVariables
+  MeditationScreenQueryVariables,
 } from "../graphql";
 import { ErrorMessage, Loading, CenterContents } from "../components";
+import { DownloadPanel } from "../components/DownloadPanel";
 
 interface Props {
   id: string;
@@ -17,7 +18,7 @@ export const MeditationScreen: React.FC<Props> = ({ id }) => {
     MeditationScreenQuery,
     MeditationScreenQueryVariables
   >(meditationScreenQuery, {
-    variables: { id }
+    variables: { id },
   });
 
   const meditation = data?.Meditation;
@@ -33,6 +34,12 @@ export const MeditationScreen: React.FC<Props> = ({ id }) => {
         <h4 style={{ textAlign: "center" }}>{meditation.title}</h4>
       </CenterContents>
       <ContentImage src={meditation.no_text_image.processed_url} />
+      <DownloadPanel
+        title={meditation.title}
+        image={meditation.no_text_image.processed_url}
+        type="meditations"
+        author={meditation.teacher.full_name}
+      />
       <TeacherImage src={meditation.teacher.image.processed_url} />
       <Media src={meditation.media_source} />
     </>

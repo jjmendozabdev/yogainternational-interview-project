@@ -4,9 +4,10 @@ import { ContentImage, TeacherImage, Media } from "../mocks";
 import {
   articleScreenQuery,
   ArticleScreenQuery,
-  ArticleScreenQueryVariables
+  ArticleScreenQueryVariables,
 } from "../graphql";
 import { ErrorMessage, Loading, CenterContents } from "../components";
+import { DownloadPanel } from "../components/DownloadPanel";
 
 interface Props {
   id: string;
@@ -17,7 +18,7 @@ export const ArticleScreen: React.FC<Props> = ({ id }) => {
     ArticleScreenQuery,
     ArticleScreenQueryVariables
   >(articleScreenQuery, {
-    variables: { id }
+    variables: { id },
   });
 
   const article = data?.Article;
@@ -33,6 +34,12 @@ export const ArticleScreen: React.FC<Props> = ({ id }) => {
         <h4 style={{ textAlign: "center" }}>{article.title}</h4>
       </CenterContents>
       <ContentImage src={article.no_text_image.processed_url} />
+      <DownloadPanel
+        title={article.title}
+        image={article.no_text_image.processed_url}
+        type="articles"
+        author={article.teacher.full_name}
+      />
       <TeacherImage src={article.teacher.image.processed_url} />
       {article.media_source && <Media src={article.media_source} />}
     </>

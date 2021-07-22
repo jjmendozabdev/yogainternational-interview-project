@@ -4,10 +4,11 @@ import { ContentImage, TeacherImage } from "../../mocks";
 import {
   courseScreenQuery,
   CourseScreenQuery,
-  CourseScreenQueryVariables
+  CourseScreenQueryVariables,
 } from "../../graphql";
 import { ChapterList } from "./ChapterList";
 import { ErrorMessage, Loading, CenterContents } from "../../components";
+import { DownloadPanel } from "../../components/DownloadPanel";
 
 interface Props {
   id: string;
@@ -18,7 +19,7 @@ export const CourseScreen: React.FC<Props> = ({ id }) => {
     CourseScreenQuery,
     CourseScreenQueryVariables
   >(courseScreenQuery, {
-    variables: { id }
+    variables: { id },
   });
 
   const course = data?.Course;
@@ -35,6 +36,12 @@ export const CourseScreen: React.FC<Props> = ({ id }) => {
         <h4 style={{ textAlign: "center" }}>{course.title}</h4>
       </CenterContents>
       <ContentImage src={course.no_text_image?.processed_url || ""} />
+      <DownloadPanel
+        title={course.title}
+        image={course.no_text_image?.processed_url || ""}
+        type="courses"
+        author={teacher?.full_name || ""}
+      />
       <TeacherImage src={teacher?.image.processed_url || ""} />
       <h4 style={{ textAlign: "center" }}>Course content</h4>
       <ChapterList chapters={course.chapters} />

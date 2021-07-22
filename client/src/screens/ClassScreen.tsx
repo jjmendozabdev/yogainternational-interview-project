@@ -4,9 +4,10 @@ import { ContentImage, TeacherImage, Media } from "../mocks";
 import {
   classScreenQuery,
   ClassScreenQuery,
-  ClassScreenQueryVariables
+  ClassScreenQueryVariables,
 } from "../graphql";
 import { ErrorMessage, Loading, CenterContents } from "../components";
+import { DownloadPanel } from "../components/DownloadPanel";
 
 interface Props {
   id: string;
@@ -17,7 +18,7 @@ export const ClassScreen: React.FC<Props> = ({ id }) => {
     ClassScreenQuery,
     ClassScreenQueryVariables
   >(classScreenQuery, {
-    variables: { id }
+    variables: { id },
   });
 
   const class_ = data?.Class;
@@ -33,6 +34,12 @@ export const ClassScreen: React.FC<Props> = ({ id }) => {
         <h4>{class_.title}</h4>
       </CenterContents>
       <ContentImage src={class_.no_text_image.processed_url} />
+      <DownloadPanel
+        title={class_.title}
+        image={class_.no_text_image.processed_url}
+        type="classes"
+        author={class_.teacher.full_name}
+      />
       <TeacherImage src={class_.teacher.image.processed_url} />
       <Media src={class_.media_source} />
     </>

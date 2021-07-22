@@ -28,7 +28,7 @@ type RouteOptions =
 
 type ActiveRoute = {
   route: RouteOptions;
-  params: DefaultProps;
+  params: Partial<DefaultProps>;
 };
 
 const routes: any = {

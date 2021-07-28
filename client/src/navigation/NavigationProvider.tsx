@@ -8,28 +8,11 @@ import {
   ClassPlayerScreen,
   CoursePlayerScreen,
   ArticlePlayerScreen,
-  MeditationPlayerScreen
+  MeditationPlayerScreen,
 } from "../screens";
 import { ErrorMessage } from "../components";
 import React, { createContext, useState } from "react";
-import { DefaultProps } from "./types";
-
-type RouteOptions =
-  | "HomeScreen"
-  | "DownloadsScreen"
-  | "ClassScreen"
-  | "MeditationScreen"
-  | "CourseScreen"
-  | "ArticleScreen"
-  | "ClassPlayerScreen"
-  | "CoursePlayerScreen"
-  | "ArticlePlayerScreen"
-  | "MeditationPlayerScreen";
-
-type ActiveRoute = {
-  route: RouteOptions;
-  params: Partial<DefaultProps>;
-};
+import { ActiveRoute } from "./types";
 
 const routes: any = {
   HomeScreen,
@@ -45,7 +28,6 @@ const routes: any = {
 };
 const initialRoute: ActiveRoute = {
   route: "HomeScreen",
-  params: { id: "", content: {} },
 };
 
 export const NavigationContext = createContext<{

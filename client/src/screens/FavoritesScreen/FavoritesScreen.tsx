@@ -2,6 +2,12 @@ import React from "react";
 import { useNavigation } from "../../navigation";
 import { Favorite } from "./types";
 import { FavoritesSection } from "./FavoritesSection";
+import {
+  Query_Class_Class,
+  Query_Course_CoursePlayerPage_Course,
+  RN_Query_Article_Article,
+  RN_Query_Meditation_Meditation,
+} from "../../graphql/types";
 
 type FavoritesByType = {
   classes: Favorite[];
@@ -35,40 +41,40 @@ export const MyFavoritesScreen = () => {
       <FavoritesSection
         heading="Classes"
         items={favoritesByType.classes}
-        onClickItem={item => {
+        onClickItem={(item: Favorite<Query_Class_Class>) => {
           navigate({
             route: "ClassPlayerScreen",
-            params: { content: item.content }
+            params: { content: item.content },
           });
         }}
       />
       <FavoritesSection
         heading="Courses"
         items={favoritesByType.courses}
-        onClickItem={item => {
+        onClickItem={(item: Favorite<Query_Course_CoursePlayerPage_Course>) => {
           navigate({
             route: "CoursePlayerScreen",
-            params: { content: item.content }
+            params: { content: item.content },
           });
         }}
       />
       <FavoritesSection
         heading="Articles"
         items={favoritesByType.articles}
-        onClickItem={item => {
+        onClickItem={(item: Favorite<RN_Query_Article_Article>) => {
           navigate({
             route: "ArticlePlayerScreen",
-            params: { content: item.content }
+            params: { content: item.content },
           });
         }}
       />
       <FavoritesSection
         heading="Meditations"
         items={favoritesByType.meditations}
-        onClickItem={item => {
+        onClickItem={(item: Favorite<RN_Query_Meditation_Meditation>) => {
           navigate({
             route: "MeditationPlayerScreen",
-            params: { content: item.content }
+            params: { content: item.content },
           });
         }}
       />

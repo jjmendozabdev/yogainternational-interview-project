@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "../../navigation";
-import { Favorite } from "./types";
+import { Favorite, Class, Meditation, Course, Article } from "./types";
 import { FavoritesSection } from "./FavoritesSection";
 import {
   Query_Class_Class,
@@ -8,31 +8,40 @@ import {
   RN_Query_Article_Article,
   RN_Query_Meditation_Meditation,
 } from "../../graphql/types";
+import {
+  favoriteIsClass,
+  favoriteIsCourse,
+  favoriteIsMeditation,
+  favoriteIsArticle,
+} from "./validations";
 
 type FavoritesByType = {
-  classes: Favorite[];
-  meditations: Favorite[];
-  articles: Favorite[];
-  courses: Favorite[];
+  classes: Favorite<Class>[];
+  meditations: Favorite<Meditation>[];
+  articles: Favorite<Article>[];
+  courses: Favorite<Course>[];
 };
 
 const getFavoritesByType = (favorites: Favorite[]) => {
-  return favorites.reduce(
-    (acc: FavoritesByType, d) => {
-      if (d.content.__typename === "Class") acc.classes.push(d);
-      if (d.content.__typename === "Course") acc.courses.push(d);
-      if (d.content.__typename === "Meditation") acc.meditations.push(d);
-      if (d.content.__typename === "Article") acc.articles.push(d);
-      return acc;
-    },
-    { classes: [], meditations: [], articles: [], courses: [] }
-  );
+  const init: FavoritesByType = {
+    classes: [],
+    meditations: [],
+    articles: [],
+    courses: [],
+  };
+  return favorites.reduce((acc, d) => {
+    if (favoriteIsClass(d)) acc.classes.push(d);
+    if (favoriteIsCourse(d)) acc.courses.push(d);
+    if (favoriteIsMeditation(d)) acc.meditations.push(d);
+    if (favoriteIsArticle(d)) acc.articles.push(d);
+    return acc;
+  }, init);
 };
 
 export const MyFavoritesScreen = () => {
   const { navigate } = useNavigation();
 
-  const favorites: Favorite[] = [];
+  const favorites: Favorite<Class>[] = [];
   const favoritesByType: FavoritesByType = getFavoritesByType(favorites);
 
   return (

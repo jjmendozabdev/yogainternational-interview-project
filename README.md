@@ -71,4 +71,4 @@ You know that currently users can see content recommended to them on the `HomeSc
 
 ##### Implementation Plan
 
-**@TODO_WRITE_YOUR_ANSWER_HERE**
+For this I would create a function to update the content with the new data that is coming from the API by removing the old stored content (but not deleting the media files) and replacing it with the new values and structure. Then create a hook that will make request to the API that notifies the app update and pass the first function. Then use this hook in the DownloadCard and in every screen that renders content to the user.
